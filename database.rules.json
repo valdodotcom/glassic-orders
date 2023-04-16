@@ -1,0 +1,20 @@
+{
+  "rules": {
+    "products": {
+      ".indexOn": ["category"],
+      ".read": true
+    },
+    "categories": {
+      ".read": true
+    },
+    "cart": {
+      ".read": true,
+      ".write": true
+    },
+    "order": {
+      ".write": true
+    },
+    ".read": false,
+    ".write": false
+  }
+}
