@@ -4,6 +4,7 @@
   },
   "hosting": {
     "public": "build",
+    "site": "view-glassic-orders",
     "ignore": [
       "firebase.json",
       "**/.*",
