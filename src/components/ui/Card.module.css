@@ -1,0 +1,101 @@
+  .subCard {
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 5%;
+    margin: 2.5%;
+    max-width: 1000px;
+    /* min-width: 255px; */
+  }
+  
+  .item {
+    margin: 1rem 0;
+    padding: 5px;
+  }
+  
+  .content {
+    text-align: center;
+  }
+  
+  .content h3 {
+    font-size: 1.25rem;
+    color: #2c292b;
+  }
+  
+  .actions {
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .actions button {
+    font: inherit;
+    cursor: pointer;
+    color: #77002e;
+    border: 1px solid #77002e;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+  }
+  
+  .actions button:hover,
+  .actions button:active {
+    background-color: #ffe2ed;
+  }
+  
+  .miniActions button:hover,
+  .miniActions button:active {
+    background-color: #ffe2ed;
+  }
+
+  .loginSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* margin: 20px; */
+  }
+
+  .gridGap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  input[type="text"], input[type="email"], input[type="password"] {
+    grid-column: 2 / 5;
+    grid-row: auto;
+    align-self: center;
+    width: 90%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .orderItem {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .billing {
+    flex-basis: 50%;
+  }
+  
+  .items {
+    flex-basis: 50%;
+  }
+  
+  .items ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .items li {
+    margin-bottom: 10px;
+  }
+  
+  .billingItem {
+    margin-bottom: 0.5rem;
+  }

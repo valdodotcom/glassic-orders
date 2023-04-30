@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react';
 import OrderList from '../components/orders/OrderList';
 import OrderItem from '../components/orders/OrderItem';
 import LoginPage from './Login';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/database';
+import { idToken } from './Login';
+import styles from '../components/ui/Card.module.css';
 
 export default function Orders() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,31 +25,40 @@ export default function Orders() {
   useEffect(() => {
     if (isLoggedIn) {
       setIsLoading(true);
-      fetch('https://glassic-site-default-rtdb.firebaseio.com/orders.json')
-        .then(response => response.json())
-        .then(data => {
-          const orders = [];
-          for (const key in data) {
-            const order = {
-              id: key,
-              ...data[key]
-            };
-            orders.push(order)
+          const ref = firebase.database().ref('orders');
+          if (ref) {
+            ref.auth = { idToken };
+            ref.once('value')
+              .then(snapshot => {
+                const orders = [];
+                snapshot.forEach(childSnapshot => {
+                  const order = {
+                    id: childSnapshot.key,
+                    ...childSnapshot.val()
+                  };
+                  orders.push(order);
+                });
+                setIsLoading(false);
+                setLoadedOrders(orders);
+              })
+              .catch(error => {
+                console.error(error);
+                setIsLoading(false);
+              });
           }
-          setIsLoading(false);
-          setLoadedOrders(orders);
-        });
     }
-  }, [isLoggedIn])
+  }, [isLoggedIn]);
 
   return (
     <section>
-      <h2>Your Orders</h2>
+      <h1>Orders Received</h1>
       {!isLoggedIn && (
         <>
-          <button onClick={() => setIsLoginPageVisible(true)}>
-            Login to view orders
-          </button>
+          <div className={styles.actions}>
+            <button onClick={() => setIsLoginPageVisible(true)}>
+              Login to view orders
+            </button>
+          </div>
           {isLoginPageVisible && (
             <LoginPage onLoginSuccess={handleLoginSuccess} />
           )}
@@ -58,7 +72,9 @@ export default function Orders() {
           <OrderList orders={loadedOrders}>
             <OrderItem />
           </OrderList>
+          <div className={styles.actions}>
           <button onClick={handleLogout}>Logout</button>
+          </div>
         </div>
       )}
     </section>
